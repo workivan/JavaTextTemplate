@@ -1,9 +1,7 @@
 package ru.ikuzin.javatexttemplate.service;
 
 import ru.ikuzin.javatexttemplate.Writer.WriterToFile;
-import ru.ikuzin.javatexttemplate.calculation.SequenceContainsCalculation;
 import ru.ikuzin.javatexttemplate.calculation.StatisticsCalculation;
-import ru.ikuzin.javatexttemplate.calculation.SymbolRepeatCalculation;
 import ru.ikuzin.javatexttemplate.parser.TemplatesParser;
 import ru.ikuzin.javatexttemplate.parser.WordsParser;
 
@@ -12,7 +10,8 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.*;
+import java.util.List;
+import java.util.Set;
 import java.util.stream.Stream;
 
 public class TextAnalyzerService {
@@ -44,6 +43,7 @@ public class TextAnalyzerService {
             System.err.println("Error while read from file - " + templatesPath);
             return;
         }
+
 
         for (String word : words) {
             templates.forEach(template -> template.calculate(word));
