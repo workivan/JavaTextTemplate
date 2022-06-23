@@ -1,4 +1,4 @@
-package ru.ikuzin.javatexttemplate.Writer;
+package ru.ikuzin.javatexttemplate.writer;
 
 import lombok.RequiredArgsConstructor;
 import ru.ikuzin.javatexttemplate.calculation.StatisticsCalculation;

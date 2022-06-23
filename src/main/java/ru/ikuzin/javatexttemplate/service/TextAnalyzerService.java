@@ -1,6 +1,6 @@
 package ru.ikuzin.javatexttemplate.service;
 
-import ru.ikuzin.javatexttemplate.Writer.WriterToFile;
+import ru.ikuzin.javatexttemplate.writer.WriterToFile;
 import ru.ikuzin.javatexttemplate.calculation.StatisticsCalculation;
 import ru.ikuzin.javatexttemplate.parser.TemplatesParser;
 import ru.ikuzin.javatexttemplate.parser.WordsParser;
