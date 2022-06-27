@@ -1,16 +1,14 @@
 package ru.ikuzin.javatexttemplate.service;
 
-import ru.ikuzin.javatexttemplate.writer.WriterToFile;
 import ru.ikuzin.javatexttemplate.calculation.StatisticsCalculation;
 import ru.ikuzin.javatexttemplate.parser.TemplatesParser;
 import ru.ikuzin.javatexttemplate.parser.WordsParser;
+import ru.ikuzin.javatexttemplate.writer.WriterToFile;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
