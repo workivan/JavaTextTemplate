@@ -10,8 +10,10 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class TextAnalyzerService {
@@ -20,7 +22,7 @@ public class TextAnalyzerService {
         final List<String> words;
         Path textPath = Paths.get(args[0]);
         try (Stream<String> lines = Files.lines(textPath)) {
-            words = WordsParser.fromFile(lines);
+            words = lines.flatMap(WordsParser::fromLine).collect(Collectors.toList());
             if (words.isEmpty()) {
                 System.err.println("Text file is empty");
                 return;
@@ -32,7 +34,7 @@ public class TextAnalyzerService {
 
         final Set<StatisticsCalculation> templates;
         Path templatesPath = Paths.get(args[1]);
-        try (Stream<String> lines = Files.lines(templatesPath, Charset.defaultCharset())) {
+        try (Stream<String> lines = Files.lines(templatesPath)) {
             TemplatesParser parser = new TemplatesParser();
             templates = parser.fromFile(lines);
             if (templates.isEmpty()) {
@@ -49,7 +51,7 @@ public class TextAnalyzerService {
             templates.forEach(template -> template.calculate(word));
         }
 
-        WriterToFile writer = new WriterToFile(Paths.get(args[2]));
-        templates.forEach(writer::toFile);
+        WriterToFile writer = new WriterToFile(args[2]);
+        writer.toFile(templates);
     }
 }

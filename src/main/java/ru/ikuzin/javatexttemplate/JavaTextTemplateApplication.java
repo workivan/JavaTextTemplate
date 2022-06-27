@@ -19,14 +19,12 @@ public class JavaTextTemplateApplication {
             return;
         }
 
-        for (String arg : args) {
-            if (!Files.exists(Paths.get(arg))) {
-                System.err.println("File does not exist" + arg);
+        for (int i = 0; i < 2; i++) {
+            if (!Files.exists(Paths.get(args[i]))) {
+                System.err.println("File does not exist" + args[i]);
                 return;
             }
         }
-
         TextAnalyzerService.analyze(args);
-
     }
 }
