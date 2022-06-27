@@ -9,9 +9,6 @@ import java.util.stream.Stream;
 
 
 public class TemplatesParser {
-    private final String ERROR_TEXT = "Problem while parse template- ";
-
-
     public Set<StatisticsCalculation> fromFile(Stream<String> lines) {
         final Set<StatisticsCalculation> calculations = new HashSet<>();
         lines.forEach(s -> {
