@@ -29,12 +29,10 @@ public class TextAnalyzerService {
             System.err.println("Error while read from file - " + args[0]);
             return;
         }
-
         final Set<StatisticsCalculation> templates;
         Path templatesPath = Paths.get(args[1]);
         try (Stream<String> lines = Files.lines(templatesPath)) {
-            TemplatesParser parser = new TemplatesParser();
-            templates = parser.fromFile(lines);
+            templates = TemplatesParser.fromFile(lines);
             if (templates.isEmpty()) {
                 System.err.println("Templates file is empty");
                 return;
@@ -43,7 +41,6 @@ public class TextAnalyzerService {
             System.err.println("Error while read from file - " + templatesPath);
             return;
         }
-
 
         for (String word : words) {
             templates.forEach(template -> template.calculate(word));

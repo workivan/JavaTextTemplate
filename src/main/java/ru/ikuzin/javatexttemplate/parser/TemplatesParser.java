@@ -9,23 +9,20 @@ import java.util.stream.Stream;
 
 
 public class TemplatesParser {
-    public Set<StatisticsCalculation> fromFile(Stream<String> lines) {
+    public static Set<StatisticsCalculation> fromFile(Stream<String> lines) {
         final Set<StatisticsCalculation> calculations = new HashSet<>();
         lines.forEach(s -> {
             s = s.replaceAll(" ", "");
             if (s.startsWith("\"")) {
-                LinkedList<Integer> indexesOfQuote = new LinkedList<>();
-                for (int i = 0; i < s.length(); i++) {
-                    if (s.charAt(i) == '\"') {
-                        indexesOfQuote.add(i);
-                    }
-                }
-                if (indexesOfQuote.size() == 1) {
+                int firstIndex = s.indexOf("\"");
+                int lastIndex = s.lastIndexOf("\"");
+                if (firstIndex == lastIndex) {
                     System.err.println("template" + s + " does not contain a closing quote");
                     return;
                 }
-                String pattern = s.substring(indexesOfQuote.getFirst() + 1, indexesOfQuote.getLast()); // + 1 used for skip \"
+                String pattern = s.substring(firstIndex + 1, lastIndex); // + 1 used for skip \"
                 calculations.add(new SequenceContainsCalculation(pattern));
+
             } else {
                 if (s.length() % 2 != 0) {
                     System.err.println("template " + s + " is incorrect");
@@ -37,10 +34,10 @@ public class TemplatesParser {
                     if (!Character.isDigit(s.charAt(i + 1))) {
                         System.err.println("template " + character + "" + s.charAt(i + 1) + "" +
                                 " does not contain the number of required repetitions");
-                    } else {
-                        int integer = Character.getNumericValue(s.charAt(i + 1));
-                        template.put(character, integer);
+                        return;
                     }
+                    int integer = Character.getNumericValue(s.charAt(i + 1));
+                    template.put(character, integer);
                 }
                 calculations.add(new SymbolRepeatCalculation(template));
             }
