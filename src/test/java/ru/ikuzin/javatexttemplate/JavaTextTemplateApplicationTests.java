@@ -8,13 +8,11 @@ import ru.ikuzin.javatexttemplate.calculation.SequenceContainsCalculation;
 import ru.ikuzin.javatexttemplate.calculation.StatisticsCalculation;
 import ru.ikuzin.javatexttemplate.calculation.SymbolRepeatCalculation;
 import ru.ikuzin.javatexttemplate.parser.TemplatesParser;
-import ru.ikuzin.javatexttemplate.parser.WordsParser;
 import ru.ikuzin.javatexttemplate.service.TextAnalyzerService;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Stream;
@@ -75,25 +73,15 @@ public class JavaTextTemplateApplicationTests {
 
     @Test
     public void testTemplatesParserCorrect() {
-        TemplatesParser parser = new TemplatesParser();
-        final Set<StatisticsCalculation> templates = parser.fromFile(Stream.of("\"фа\"", "т1о1"));
+        final Set<StatisticsCalculation> templates = TemplatesParser.fromFile(Stream.of("\"фа\"", "т1о1"));
         assertEquals(templates.size(), 2);
     }
 
     @Test
     public void testTemplatesParserNotCorrect() {
-        TemplatesParser parser = new TemplatesParser();
-        final Set<StatisticsCalculation> templates = parser.fromFile(Stream.of(
+        final Set<StatisticsCalculation> templates = TemplatesParser.fromFile(Stream.of(
                 "\"фа", "т1о1 hghfgh", "т4л", "т5дн"));
         assertEquals(templates.size(), 0);
-    }
-
-    @Test
-    public void testWordsParserCorrect() {
-        final List<String> words = WordsParser.fromFile(Stream.of(
-                "ghbdt ,jkmit gdfgdfg", "gfdfg dfgdfg dfg2342 dfg>/. fsdf", " fsdf "
-        ));
-        assertEquals(words.size(), 9);
     }
 
     @Test
